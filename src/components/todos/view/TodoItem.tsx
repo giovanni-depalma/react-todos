@@ -1,15 +1,35 @@
-import { Todo } from '../domain/Todo';
+import { useCallback } from "react";
+import styled from "styled-components";
+import tw from "twin.macro";
+import { DangerButton, PrimaryButton, SecondaryButton } from "../../../ui/Buttons";
 
-export interface Props{
-    title: string,
-    completed: boolean
+export interface Props {
+  title: string;
+  id: number;
+  completed: boolean;
+  onRemoveTodo: (id: number) => void;
 }
 
-export const TodoItem = function({title, completed}: Props){
-    return (
-        <article>
-            <h2>{title}</h2>
-            <span>{completed? "OK" : "RUNNING"}</span>
-        </article>
-    )
-}
+const StyledTitle = styled.p<{
+  completed: boolean;
+}>`
+  ${tw`w-full`};
+  ${({ completed }) => completed && tw`line-through text-green-500`}
+`
+const ItemContainer = tw.div`flex mb-4 items-center`
+
+export const TodoItem = function ({
+  title,
+  completed,
+  id,
+  onRemoveTodo,
+}: Props) {
+  const onClickRemove = useCallback(() => onRemoveTodo(id), [id, onRemoveTodo]);
+  return (
+    <ItemContainer>
+      <StyledTitle completed={completed}>{title}</StyledTitle>
+          {completed ? <SecondaryButton>Not Done</SecondaryButton> : <PrimaryButton>Done</PrimaryButton>}
+          <DangerButton onClick={onClickRemove}>Delete</DangerButton>
+    </ItemContainer>
+  );
+};

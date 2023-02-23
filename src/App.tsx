@@ -1,13 +1,15 @@
+import tw from "twin.macro";
+import { RouterProvider } from "react-router";
+import { router } from "./routes/router";
 
-import { TodoListFetcher } from './components/todos/view/TodoListFetcher'
-import './App.css'
+const PageContainer = tw.div`flex items-center justify-center bg-cyan-50`;
 
 function App() {
   return (
-      <div className="App">
-        <TodoListFetcher/>
-      </div>
-  )
+    <PageContainer>
+      <RouterProvider router={router} />
+    </PageContainer>
+  );
 }
 
-export default App
+export default App;
