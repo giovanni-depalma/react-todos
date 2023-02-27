@@ -1,10 +1,8 @@
-import { useCallback } from "react";
+import { ComponentType, useCallback } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import { Todo } from "../../domain/Todo";
-import { LoaderResponse, TodoHooks } from "../../domain/TodoHooks";
-import { WithService } from "../../domain/withService";
+import { LoaderResponse, WithService } from "../../domain/CrudTodosService";
 import { TODOS_URL, fetcher, fetchAdd, fetchDelete } from "../../repository/todoRepository";
-
 
 const useTodos = function ():LoaderResponse<Todo[]> {
   return useSWR<Todo[]>(TODOS_URL, fetcher);
@@ -29,9 +27,8 @@ const useOnRemoveTodo = function () {
   },[mutate]);
 };
 
-const hooks = {useTodos, useOnAddTodo, useOnRemoveTodo}
 
-export const withServiceUseSwr: WithService = (Component) =>
+export const withServiceUseSwr: WithService = (Component) => 
    (props) => {
-      return <Component {...props} hooks={hooks}/>
+    return <Component {...props} useOnAddTodo={useOnAddTodo} useOnRemoveTodo={useOnRemoveTodo} useTodos={useTodos} />
    };

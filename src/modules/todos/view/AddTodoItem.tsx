@@ -1,17 +1,16 @@
 import { useState } from "react";
 import tw from "twin.macro";
-import { PrimaryButton } from "../../../ui/Buttons";
-import { Input } from "../../../ui/Input";
+import { Input, PrimaryButton } from "../../ui/";
 
 export interface Props {
   onAddTodo: (todo: string) => void;
 }
 
-const AddTodoContainer = tw.div`flex mt-4`;
+const Container = tw.div`flex mt-4`;
 export const AddTodoItem = ({ onAddTodo }: Props) => {
   const [todo, setTodo] = useState("");
   return (
-    <AddTodoContainer>
+    <Container>
       <Input
         placeholder="Add Todo"
         onChange={(e) => {
@@ -19,6 +18,6 @@ export const AddTodoItem = ({ onAddTodo }: Props) => {
         }}
       />
       <PrimaryButton onClick={() => onAddTodo(todo)}>Add</PrimaryButton>
-    </AddTodoContainer>
+    </Container>
   );
 };

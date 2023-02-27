@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable, runInAction } from "mobx"
 import {Todo} from "../../domain/Todo"
 import { fetcher, fetchAdd, fetchDelete } from "../../repository/todoRepository";
 
@@ -21,16 +21,20 @@ export class Mobx {
             console.log("mobx getTodos");
             this.isLoading = true;
             fetcher().then(todos => {
-                this.todos = todos;
-                this.isLoading = false;
-                this.error = undefined;
-                this.isDone = true;
-                console.log("mobx loaded", this.todos);
+                console.log("mobx loaded");
+                runInAction(()=> {
+                    this.todos = todos;
+                    this.isLoading = false;
+                    this.error = undefined;
+                    this.isDone = true;
+                })
             }).catch((error) => {
-                this.error = error;
-                this.isLoading = false;
-                this.todos = undefined;
-                this.isDone = true;
+                runInAction(()=> {
+                    this.error = error;
+                    this.isLoading = false;
+                    this.todos = undefined;
+                    this.isDone = true;
+                });
             });
         }
     }

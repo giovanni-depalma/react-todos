@@ -1,7 +1,6 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useAddTodoMutation, useDeleteTodoMutation, useGetTodosQuery } from "./todoApi"
-import { WithService } from "../../domain/withService";
-import { TodoHooks } from "../../domain/TodoHooks";
+import { Hooks, WithService } from "../../domain/CrudTodosService";
 
 
 
@@ -23,10 +22,8 @@ const useOnRemoveTodo = () => {
       removeTodo(id);
    },[removeTodo]);
 };
-const hooks:TodoHooks = {useTodos, useOnAddTodo, useOnRemoveTodo}
 
- 
 export const withServiceRedux: WithService = (Component) =>
    (props) => {
-      return <Component {...props} hooks={hooks}/>
+      return <Component {...props} useOnAddTodo={useOnAddTodo} useOnRemoveTodo={useOnRemoveTodo} useTodos={useTodos} />
    };

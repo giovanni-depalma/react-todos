@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { DangerButton, PrimaryButton, SecondaryButton } from "../../../ui/Buttons";
+import { DangerButton, PrimaryButton, SecondaryButton } from "../../ui";
 
 export interface Props {
   title: string;

@@ -7,15 +7,15 @@ interface Props {
   onRemoveTodo: (id: number) => void;
 }
 
-const TodosContainer = tw.div``
+const Container = tw.div``
 
 export const TodoList = function ({ items = [], onRemoveTodo }: Props) {
   return (
-      <TodosContainer>
+      <Container>
         {items.map((item) => (
           <TodoItem key={item.id} {...item} onRemoveTodo={onRemoveTodo} />
         ))}
-      </TodosContainer>
+      </Container>
   );
 };
 
