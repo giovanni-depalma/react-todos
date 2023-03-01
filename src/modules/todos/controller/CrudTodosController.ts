@@ -1,6 +1,7 @@
 import { ComponentType } from "react";
 import { withServiceMobx } from "../service/mobx";
 import { withServiceRedux } from "../service/redux";
+import withServiceSignals from "../service/signals";
 import { withServiceUseSwr } from "../service/useSwr";
 import { CrudTodos } from "../view/CrudTodos";
 
@@ -10,6 +11,9 @@ if(import.meta.env.VITE_SERVICE_IMPL === "mobx"){
 }
 else if(import.meta.env.VITE_SERVICE_IMPL === "redux"){
     CrudTodosController = withServiceRedux(CrudTodos);
+}
+else if(import.meta.env.VITE_SERVICE_IMPL === "signals"){
+    CrudTodosController = withServiceSignals(CrudTodos);
 }
 else{
     CrudTodosController = withServiceUseSwr(CrudTodos);

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useAddTodoMutation, useDeleteTodoMutation, useGetTodosQuery } from "./todoApi"
-import { Hooks, WithService } from "../../domain/CrudTodosService";
+import { WithService } from "../../domain/CrudTodosService";
 
 
 
@@ -9,17 +9,19 @@ const useTodos = () => {
    return useMemo(() => ({data: result.currentData, isLoading: result.isLoading, error: result.isError}),[result]);
 };
 const useOnAddTodo = () => {
-   const [addTodo] = useAddTodoMutation();
-   return useCallback((todo: string) => {
-      console.log("redux addTodo");
-      addTodo(todo);
-   },[addTodo]);
+   const [addTodo,result] = useAddTodoMutation();
+   return useCallback(async (todo: string) => {
+      console.log("redux addTodo",result);
+      const test = await addTodo(todo);
+      console.log("result", test)
+   },[addTodo,result]);
 };
 const useOnRemoveTodo = () => {
    const [removeTodo] = useDeleteTodoMutation();
-   return useCallback((id: number) => {
+   return useCallback(async (id: number) => {
       console.log("redux remove");
-      removeTodo(id);
+      const result = await removeTodo(id);
+      console.log("result", result)
    },[removeTodo]);
 };
 

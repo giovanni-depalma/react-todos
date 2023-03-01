@@ -1,4 +1,4 @@
-import { ComponentType, useCallback } from "react";
+import { useCallback } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import { Todo } from "../../domain/Todo";
 import { LoaderResponse, WithService } from "../../domain/CrudTodosService";
